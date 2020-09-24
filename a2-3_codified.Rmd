@@ -140,5 +140,11 @@ plot_pcurves(tested_power_curve)
 Assume you have only the resources to collect 30 kids (15 with ASD and 15 TDs). Identify the power for each relevant effect and discuss whether it's worth to run the study and why
 
 ```{r}
+# Extend it backwards y'all! 
+m_int_small <- extend(m_int, along="Child.ID", n=30)
+
+lil_powercurves <- map(relevant_effects, ~power_curve_testy(.x, model = m_int_small))
+
+plot_pcurves(lil_powercurves)
 
 ```
