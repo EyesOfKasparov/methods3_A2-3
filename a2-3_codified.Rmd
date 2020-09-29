@@ -1,8 +1,10 @@
 ---
 title: "Assignment 1 - Language Development in ASD - Power and simulations"
-author: "[YOUR NAME]"
-date: "[DATE]"
-output: html_document
+author: "Eyes of Kasparov"
+date: '2020-09-29'
+output:
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -66,13 +68,12 @@ sig_inter_terms <- m3 %>%
   filter(str_detect(term, ":")) %>% 
   pull(term)
 
-params
-
 power_test_interact <- function(interact, model=m3) {
   simr::powerSim(model, test = fixed(interact, "z"), nsim=50)
 }
 
 interaction_list <- purrr::map(sig_inter_terms, power_test_interact)
+interaction_list
 ```
 
 #### Testing underpowered interactions 
@@ -83,7 +84,7 @@ underpowered_interactions <- c('Visit:MOT_MLU', 'Visit:verbalIQ1','DiagnosisTD:M
 m3_large <- extend(m3, along="Child.ID", n=161)
 
 power_curve_testy <- function(param, model=m3_large) {
-  powerCurve(model, test=fixed(param, "z"), along = "Child.ID", nsim=50)
+  powerCurve(model, test=fixed(param, "z"), along = "Child.ID", nsim=100)
 }
 
 
